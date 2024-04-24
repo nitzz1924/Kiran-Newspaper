@@ -5,9 +5,10 @@ use App\Http\Controllers\ViewController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
+Route::get('/',[ViewController::class,'homepage'])->name('homepage');
 
 Route::post('/logoutuser', function () {
     Auth::logout();
@@ -30,3 +31,4 @@ Route::get('/viewaddnews', [ViewController::class, 'viewaddnews'])->name('viewad
 Route::post('/createnewspaper', [StoreController::class, 'createnewspaper'])->name('createnewspaper');
 Route::get('/allnewspapers', [ViewController::class, 'allnewspapers'])->name('allnewspapers');
 Route::get('/paperdetailsview/{id}', [ViewController::class, 'paperdetailsview'])->name('paperdetailsview');
+Route::get('/viewnews/{id}', [ViewController::class, 'viewnews'])->name('viewnews');

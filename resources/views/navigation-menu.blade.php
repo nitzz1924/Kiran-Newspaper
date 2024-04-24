@@ -35,12 +35,12 @@
         <div class="container-fluid">
             <div id="two-column-menu"></div>
             <ul class="navbar-nav" id="navbar-nav">
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link menu-link" href="{{ route('dashboard') }}">
                         <i class="bx bxs-dashboard"></i>
                         <span>Dashboard</span>
                     </a>
-                </li>
+                </li> --}}
                 <li class="menu-title"><span data-key="t-menu">Master</span></li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="{{ route('viewaddnews') }}">

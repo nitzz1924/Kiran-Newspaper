@@ -25,4 +25,17 @@ class ViewController extends Controller
         $data = Date::find($id);
         return view('AdminPanel.paperdetails',compact('newspaperdata','data'));
     }
+
+    public function homepage()
+    {
+        $data = Date::orderBy('date','desc')->get();
+        return view('home',compact('data'));
+    }
+
+    public function viewnews($id)
+    {
+        $newspaperdata = Newspaper::where('newsid',$id)->get();
+        $data = Date::find($id);
+        return view('viewnews',compact('newspaperdata','data'));
+    }
 }
