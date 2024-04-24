@@ -35,7 +35,7 @@
                         <div class="flex-shrink-0">
                             <div class="form-check form-switch form-switch-right form-switch-md">
                                 <a href="#"><button type="button"
-                                        class="btn btn-success waves-effect waves-light addRow">+</button></a>
+                                        class="btn btn-primary waves-effect waves-light addRow">+ Add Row</button></a>
                             </div>
                         </div>
                     </div>
@@ -44,7 +44,6 @@
                         <div class="card-body table-responsive">
                             <table class="table table-nowrap table-bordered">
                                 <thead>
-                                    <tr>
                                         <th scope="col" colspan="3"> <div class="mb-3 row col-lg-4 ms-1">
                                             <label for="JoiningdatInput" class="form-label">Newspaper Date</label>
                                             <input type="date" class="form-control" data-provider="flatpickr"
@@ -80,7 +79,7 @@
                             </table>
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-success waves-effect waves-light float-end">Submit</button>
+                            <button type="submit" class="btn btn-success waves-effect waves-light">Submit</button>
                         </div>
                     </form>
                 </div>

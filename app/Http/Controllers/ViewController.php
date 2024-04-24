@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Newspaper;
+use App\Models\Date;
 use Illuminate\Http\Request;
 
 class ViewController extends Controller
@@ -13,8 +14,15 @@ class ViewController extends Controller
     }
     public function allnewspapers()
     {
-        $data = Newspaper::join('dates', 'newspapers.newsid','=','dates.id')->select('dates.*','newspapers.*')->first();
+        $data = Date::orderBy('date','desc')->get();
         // dd($data);
         return view('AdminPanel.allnewspapers',compact('data'));
+    }
+
+    public function paperdetailsview($id)
+    {
+        $newspaperdata = Newspaper::where('newsid',$id)->get();
+        $data = Date::find($id);
+        return view('AdminPanel.paperdetails',compact('newspaperdata','data'));
     }
 }

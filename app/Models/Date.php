@@ -10,6 +10,7 @@ class Date extends Model
     protected $fillable = [
         'id',
         'date',
+        'coverimage',
         'status'
     ];
 }

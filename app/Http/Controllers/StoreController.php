@@ -14,29 +14,31 @@ class StoreController extends Controller
         $sequence = $req->sequence;
         $papers = $req->papers;
 
-        $date = Date::create([
-            'date' => $req->newsdate,
-        ]);
-
-        $data_id = $date->id;
-        // dd($data_id);
         try {
             $req->validate([
                 'sequence.*' => 'required',
                 'papers.*' => 'required',
             ]);
             $image = array();
-                if ($files = $req->file('papers')) {
-                    foreach ($files as $file) {
-                        $image_name = md5(rand(1000, 10000));
-                        $extension = strtolower($file->getClientOriginalExtension());
-                        $image_fullname = $image_name . '.' . $extension;
-                        $uploaded_path = "uploads/";    //for live server add 'public/uploads/'
-                        $image_url = $uploaded_path . $image_fullname;
-                        $file->move($uploaded_path, $image_fullname);
-                        $image[] = $image_url;
-                    }
+            if ($files = $req->file('papers')) {
+                foreach ($files as $file) {
+                    $image_name = md5(rand(1000, 10000));
+                    $extension = strtolower($file->getClientOriginalExtension());
+                    $image_fullname = $image_name . '.' . $extension;
+                    $uploaded_path = "uploads/";    //for live server add 'public/uploads/'
+                    $image_url = $uploaded_path . $image_fullname;
+                    $file->move($uploaded_path, $image_fullname);
+                    $image[] = $image_url;
                 }
+            }
+
+            $date = Date::create([
+                'date' => $req->newsdate,
+                'coverimage' => $image[0],
+            ]);
+
+            $data_id = $date->id;
+            // dd($data_id);
             for ($i = 0; $i < count($sequence); $i++) {
                 $datasave = [
                     'sequence' => $sequence[$i],
