@@ -28,7 +28,7 @@ class ViewController extends Controller
 
     public function homepage()
     {
-        $data = Date::orderBy('date','desc')->get();
+        $data = Date::orderBy('date','desc')->paginate(6);
         return view('home',compact('data'));
     }
 

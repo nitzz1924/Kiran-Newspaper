@@ -22,8 +22,8 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return view('AdminPanel.dashboard');
-    })->name('dashboard');
+        return view('AdminPanel.addnewspaper');
+    })->name('createnewspaper');
 });
 
 
@@ -31,4 +31,4 @@ Route::get('/viewaddnews', [ViewController::class, 'viewaddnews'])->name('viewad
 Route::post('/createnewspaper', [StoreController::class, 'createnewspaper'])->name('createnewspaper');
 Route::get('/allnewspapers', [ViewController::class, 'allnewspapers'])->name('allnewspapers');
 Route::get('/paperdetailsview/{id}', [ViewController::class, 'paperdetailsview'])->name('paperdetailsview');
-Route::get('/viewnews/{id}', [ViewController::class, 'viewnews'])->name('viewnews');
+Route::get('/viewnews/{id}/{date}', [ViewController::class, 'viewnews'])->name('viewnews');

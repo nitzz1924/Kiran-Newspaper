@@ -3,7 +3,7 @@
     <!-- LOGO -->
     <div class="navbar-brand-box">
         <!-- Dark Logo-->
-        <a href="{{ route('dashboard') }}" class="logo logo-dark">
+        <a href="#" class="logo logo-dark">
             <span class="logo-sm">
                 <img src="{{ asset('assets/images/faviconnews.jpg') }}" alt="" height="30" />
                 {{-- <h3 class="fs-3 pt-3 pb-3">ASI</h3> --}}
@@ -14,7 +14,7 @@
             </span>
         </a>
         <!-- Light Logo-->
-        <a href="{{ route('dashboard') }}" class="logo logo-light">
+        <a href="#" class="logo logo-light">
             <span class="logo-sm">
                 <img src="{{ asset('assets/images/faviconnews.jpg ') }}" alt="" height="30" />
                 {{-- <h3 class="fs-3 pt-3 pb-3">ASI</h3> --}}
