@@ -32,3 +32,4 @@ Route::post('/createnewspaper', [StoreController::class, 'createnewspaper'])->na
 Route::get('/allnewspapers', [ViewController::class, 'allnewspapers'])->name('allnewspapers');
 Route::get('/paperdetailsview/{id}', [ViewController::class, 'paperdetailsview'])->name('paperdetailsview');
 Route::get('/viewnews/{id}/{date}', [ViewController::class, 'viewnews'])->name('viewnews');
+Route::get('/daterecords/{selectedDate}', [ViewController::class, 'daterecords'])->name('daterecords');

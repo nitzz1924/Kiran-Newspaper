@@ -14,28 +14,45 @@ class ViewController extends Controller
     }
     public function allnewspapers()
     {
-        $data = Date::orderBy('date','desc')->get();
+        $data = Date::orderBy('date', 'desc')->get();
         // dd($data);
-        return view('AdminPanel.allnewspapers',compact('data'));
+        return view('AdminPanel.allnewspapers', compact('data'));
     }
 
     public function paperdetailsview($id)
     {
-        $newspaperdata = Newspaper::where('newsid',$id)->get();
+        $newspaperdata = Newspaper::where('newsid', $id)->get();
         $data = Date::find($id);
-        return view('AdminPanel.paperdetails',compact('newspaperdata','data'));
+        return view('AdminPanel.paperdetails', compact('newspaperdata', 'data'));
     }
 
     public function homepage()
     {
-        $data = Date::orderBy('date','desc')->paginate(6);
-        return view('home',compact('data'));
+        $data = Date::orderBy('date', 'desc')->paginate(6);
+        return view('home', compact('data'));
     }
 
     public function viewnews($id)
     {
-        $newspaperdata = Newspaper::where('newsid',$id)->get();
+        $newspaperdata = Newspaper::where('newsid', $id)->get();
         $data = Date::find($id);
-        return view('viewnews',compact('newspaperdata','data'));
+        return view('viewnews', compact('newspaperdata', 'data'));
     }
+
+    public function daterecords($selectedDate)
+    {
+        try {
+            $dates = Date::whereDate('date', $selectedDate)->get();
+            if ($dates->isEmpty()) {
+                return response()->json(['error' => 'No records found for the selected date.'], 404);
+            }
+            foreach ($dates as $date) {
+                return redirect()->route('viewnews', ['id' => $date->id, 'date' => $date->date]);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+
 }

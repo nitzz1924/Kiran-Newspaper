@@ -69,7 +69,7 @@
                                     $formattedDate = date('Y-m-d');
                                 }
                                 ?>
-                            <input type="date" class="form-control rounded-pill" id="exampleInputdate"
+                            <input type="date" class="form-control rounded-pill" id="newsdate"
                                 value="<?= $formattedDate ?>">
                         </div>
                     </div>
@@ -80,7 +80,7 @@
             <div class="col-xl-2 col-lg-4" style="height: 800px; overflow-y: scroll;">
                 <div class="card">
                     <div class="accordion accordion-flush filter-accordion">
-                        <div class="row">
+                        <div class="row" id="sideimages-container">
                             @foreach ($newspaperdata as $value)
                             <div class="col-sm-12 col-xl-12">
                                 <a href="#" class="text-decoration-none" data-url="{{ asset($value->papers) }}"
@@ -103,7 +103,8 @@
             <div class="col-xl-10 col-lg-8">
                 <div class="card">
                     <div class="card-header">
-                        <div class="text-muted fst-italic">Published on : {{ date('j-M-Y', strtotime($data->date)) }}
+                        <div class="text-muted fst-italic" id="published-date">Published on : {{ date('j-M-Y',
+                            strtotime($data->date)) }}
                         </div>
                     </div>
                     <div class="card-body">
@@ -136,7 +137,18 @@
         </div>
     </div>
 
+
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).on('change', '#newsdate', function() {
+            var selectedDate = $(this).val();
+            console.log(selectedDate);
+                $.ajax({
+                    type: 'GET',
+                    url: '/daterecords/' + selectedDate,
+                });
+        });
+    </script>
     <script>
         $(document).on('click', '#urldynamic', function() {
         var url = $(this).data('url');
