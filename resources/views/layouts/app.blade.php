@@ -1018,9 +1018,6 @@
 
     <!-- Sweet alert init js-->
     <script src="{{ asset('assets/js/pages/sweetalerts.init.js') }}"></script>
-
-
-
 </body>
 
 </html>

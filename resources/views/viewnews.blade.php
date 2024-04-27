@@ -143,44 +143,56 @@
         $(document).on('change', '#newsdate', function() {
             var selectedDate = $(this).val();
             console.log(selectedDate);
-                $.ajax({
-                    type: 'GET',
-                    url: '/daterecords/' + selectedDate,
-                });
+            $.ajax({
+                type: 'GET'
+                , url: '/daterecords/' + selectedDate
+                , success: function(response) {
+                    console.log(response[0].id);
+                    var baseUrl = window.location.protocol + "//" + window.location.hostname;
+                    if (window.location.port) {
+                        baseUrl += ":" + window.location.port;
+                    }
+                    window.location.href= baseUrl + '/viewnews/'+ response[0].id +'/' + selectedDate;
+                    console.log(baseUrl);
+                }
+            });
         });
+
     </script>
     <script>
         $(document).on('click', '#urldynamic', function() {
-        var url = $(this).data('url');
-        console.log(url);
-        $('#mainimg').attr('src', url);
-        $('#mainimg').data('url', url);
-        // document.getElementById('firstimg').src = url;
-        // document.getElementById('secimg').src = url;
-    });
+            var url = $(this).data('url');
+            console.log(url);
+            $('#mainimg').attr('src', url);
+            $('#mainimg').data('url', url);
+            // document.getElementById('firstimg').src = url;
+            // document.getElementById('secimg').src = url;
+        });
         $(document).on('click', '#mainimg', function() {
-        var urla = $(this).data('url');
-        console.log("urla",urla);
-        document.getElementById('firstimg').src = urla;
-        document.getElementById('secimg').src = urla;
-    });
-    $(document).on('change', '#pageSelect', function() {
-       var imgurl =  $(this).val();
-        console.log(imgurl);
-        document.getElementById('mainimg').src = imgurl;
-        $('#mainimg').data('url', imgurl);
-    });
+            var urla = $(this).data('url');
+            console.log("urla", urla);
+            document.getElementById('firstimg').src = urla;
+            document.getElementById('secimg').src = urla;
+        });
+        $(document).on('change', '#pageSelect', function() {
+            var imgurl = $(this).val();
+            console.log(imgurl);
+            document.getElementById('mainimg').src = imgurl;
+            $('#mainimg').data('url', imgurl);
+        });
+
     </script>
     <script>
         $('.zoom-trigger').click(function() {
-        $('#myModal .modal-dialog').toggleClass('modal-xl');
-        $('#myModal .modal-body').toggleClass('zoomed');
+            $('#myModal .modal-dialog').toggleClass('modal-xl');
+            $('#myModal .modal-body').toggleClass('zoomed');
         });
 
         // revert modal class on close
-        $('#myModal').on('hidden.bs.modal', function (e) {
-        $(this).find('.modal-dialog').removeClass('modal-xl');
-        $(this).find('.modal-body').removeClass('zoomed');
+        $('#myModal').on('hidden.bs.modal', function(e) {
+            $(this).find('.modal-dialog').removeClass('modal-xl');
+            $(this).find('.modal-body').removeClass('zoomed');
         })
+
     </script>
 </x-guest-layout>

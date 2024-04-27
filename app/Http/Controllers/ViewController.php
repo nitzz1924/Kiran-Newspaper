@@ -32,7 +32,7 @@ class ViewController extends Controller
         return view('home', compact('data'));
     }
 
-    public function viewnews($id)
+    public function viewnews($id, $date)
     {
         $newspaperdata = Newspaper::where('newsid', $id)->get();
         $data = Date::find($id);
@@ -43,12 +43,8 @@ class ViewController extends Controller
     {
         try {
             $dates = Date::whereDate('date', $selectedDate)->get();
-            if ($dates->isEmpty()) {
-                return response()->json(['error' => 'No records found for the selected date.'], 404);
-            }
-            foreach ($dates as $date) {
-                return redirect()->route('viewnews', ['id' => $date->id, 'date' => $date->date]);
-            }
+            // dd($dates);
+           return response()->json($dates);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
