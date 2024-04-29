@@ -18,6 +18,7 @@
         <link href="{{asset('assets/frontend-assets/css/styles.css')}}" rel="stylesheet" />
         <link rel="stylesheet" href="{{asset('css/app.css')}}">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <link href="{{ asset('/build/assets/app.css') }}" rel="stylesheet">
 
     </head>
     <body id="page-top">
@@ -62,6 +63,6 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <script src="{{asset('assets/frontend-assets/js/scripts.js')}}"></script>
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
-
+        <script src="{{ asset('/build/assets/app.js') }}"></script>
     </body>
 </html>
