@@ -2,28 +2,22 @@
 <x-guest-layout>
     <div class="container mt-3">
         <style>
-            // style zoom trigger
-
+            / CSS /
+            / Style zoom trigger /
             .zoom-trigger {
                 cursor: pointer;
             }
 
-            // hide zoomed image
-
+            / Hide zoomed image initially /
             .image-container-zoom {
                 display: none;
-
-                .zoomed & {
-                    display: block;
-                }
             }
 
             .zoomed .image-container {
                 display: none;
             }
 
-            // .modal-xl
-
+            / Media Queries for Modal Width /
             @media (min-width: 992px) {
                 .modal-xl {
                     width: 900px;
@@ -36,14 +30,7 @@
                 }
             }
 
-            // animate width
-
-            .modal.fade .modal-dialog {
-                transition: all .3s ease-out;
-            }
-
-            // misc
-
+            / Misc /
             body {
                 margin: 20px 0;
             }
@@ -183,16 +170,28 @@
 
     </script>
     <script>
-        $('.zoom-trigger').click(function() {
+        // JavaScript for Zoom Trigger and Image Container
+    $(document).ready(function () {
+        $('.zoom-trigger').click(function () {
+            $('.image-container-zoom').toggleClass('zoomed');
+        });
+    });
+
+    // JavaScript for Modal
+    $(document).ready(function () {
+        // Modal Zoom Trigger
+        $('#myModal .zoom-trigger').click(function() {
             $('#myModal .modal-dialog').toggleClass('modal-xl');
-            $('#myModal .modal-body').toggleClass('zoomed');
+            $('#myModal .image-container').toggleClass('zoomed'); // Adjusted selector here
         });
 
-        // revert modal class on close
+        // Revert modal class on close
         $('#myModal').on('hidden.bs.modal', function(e) {
             $(this).find('.modal-dialog').removeClass('modal-xl');
-            $(this).find('.modal-body').removeClass('zoomed');
-        })
+            $(this).find('.image-container').removeClass('zoomed'); // Adjusted selector here
+        });
+    });
+
 
     </script>
 </x-guest-layout>
