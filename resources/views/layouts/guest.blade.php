@@ -22,7 +22,7 @@
 
     </head>
     <body id="page-top">
-        <nav class="navbar navbar-expand-lg navbar-dark" id="mainNav">
+        <nav class="navbar navbar-expand-lg navbar" id="mainNav">
             <div class="container d-flex justify-content-center">
                 <a class="navbar-brand" href="#page-top"><img src="{{ asset('assets/images/news.jpg') }}" alt="..." /></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,16 +46,17 @@
         <footer class="footer py-4">
             <div class="container">
                 <div class="row align-items-center">
-                    <div class="col-lg-4 text-lg-start">Copyright &copy; THUNGA KIRAN. 2024</div>
+                    <div class="col-lg-4 text-lg-start">2024 THUNGA KIRAN | Developed By Shilpi Solutions</div>
                     <div class="col-lg-4 my-3 my-lg-0">
                         {{-- <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
                         <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
                         <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a> --}}
                     </div>
                     <div class="col-lg-4 text-lg-end">
-                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="https://www.facebook.com/Tungakiranakannadanewspaper?mibextid=ZbWKWL/viewnews" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="https://api.whatsapp.com/send?text=Your%20message%20here%20https://epaper.thungakiran.in/viewnews/&phone=+919986873183" aria-label="LinkedIn"><i class="fab fa-whatsapp"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="https://telegram.me/share/url?url=https://epaper.thungakiran.in/viewnews/&text=Your%20message%20here&to=+919986873183" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="#" aria-label="Telegram"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
             </div>
