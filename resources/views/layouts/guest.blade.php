@@ -19,6 +19,20 @@
         <link rel="stylesheet" href="{{asset('css/app.css')}}">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <link href="{{ asset('/build/assets/app.css') }}" rel="stylesheet">
+        <style>
+            .fixed-call-button {
+                position: fixed;
+                bottom: 20px;
+                left: 20px;
+                z-index: 1000;
+            }
+
+            .fixed-call-button .btn {
+                font-size: 16px;
+                padding: 10px 20px;
+                border-radius: 30px;
+            }
+        </style>
 
     </head>
     <body id="page-top">
@@ -56,11 +70,14 @@
                         <a class="btn btn-dark btn-social mx-2" href="https://www.facebook.com/Tungakiranakannadanewspaper?mibextid=ZbWKWL/viewnews" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
                         <a class="btn btn-dark btn-social mx-2" href="https://api.whatsapp.com/send?text=Your%20message%20here%20https://epaper.thungakiran.in/viewnews/&phone=+919986873183" aria-label="LinkedIn"><i class="fab fa-whatsapp"></i></a>
                         <a class="btn btn-dark btn-social mx-2" href="https://telegram.me/share/url?url=https://epaper.thungakiran.in/viewnews/&text=Your%20message%20here&to=+919986873183" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
-                        <a class="btn btn-dark btn-social mx-2" href="#" aria-label="Telegram"><i class="fab fa-youtube"></i></a>
+                          <a class="btn btn-dark btn-social mx-2" href="#" aria-label="Telegram"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
             </div>
         </footer>
+          <div class="fixed-call-button">
+        <a href="tel:+919986873183" class="btn btn-primary"><i class="bi bi-telephone-fill"></i> Call Us</a>
+    </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <script src="{{asset('assets/frontend-assets/js/scripts.js')}}"></script>
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
