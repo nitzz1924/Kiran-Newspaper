@@ -187,13 +187,15 @@
                         target="_blank">
                         <li class="facebook"><i class="bi bi-facebook"></i></li>
                     </a>
-                    <a href="https://telegram.me/share/url?url=https://epaper.thungakiran.in/viewnews/{{$data->id}}/{{$formattedDate}}&text=Your%20message%20here&to=+919986873183" target="_blank">
+                    <a href="https://telegram.me/share/url?url=https://epaper.thungakiran.in/viewnews/{{$data->id}}/{{$formattedDate}}&text=Your%20message%20here&to=+919986873183"
+                        target="_blank">
                         <li class="twitter"><i class="bi bi-telegram"></i></li>
                     </a>
-                    <a href="https://api.whatsapp.com/send?text=Your%20message%20here%20https://epaper.thungakiran.in/viewnews/{{$data->id}}/{{$formattedDate}}&phone=+919986873183"  target="_blank" class="">
+                    <a href="https://api.whatsapp.com/send?text=Your%20message%20here%20https://epaper.thungakiran.in/viewnews/{{$data->id}}/{{$formattedDate}}&phone=+919986873183"
+                        target="_blank" class="">
                         <li class="tumblr"><i class="bi bi-whatsapp"></i></li>
                     </a>
-                    <a href="#"  target="_blank" class="">
+                    <a href="#" target="_blank" class="">
                         <li class="youtube"><i class="bi bi-youtube"></i></li>
                     </a>
                     <button onclick="printDiv()">

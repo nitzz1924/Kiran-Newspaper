@@ -32,6 +32,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <link href="{{ asset('assets/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/frontend-assets/css/styles.css')}}" rel="stylesheet" />
 </head>
 
 <body>
@@ -991,6 +992,8 @@
             </div>
         </div>
     </div> --}}
+    <script src="{{asset('assets/frontend-assets/js/scripts.js')}}"></script>
+    {{-- <script src="{{asset('assets/frontend-assets/js/imagecroper.js')}}"></script> --}}
     <script src="{{ asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/libs/simplebar/simplebar.min.js') }}"></script>
     <script src="{{ asset('assets/libs/node-waves/waves.min.js') }}"></script>
