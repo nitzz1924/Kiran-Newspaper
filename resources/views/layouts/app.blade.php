@@ -992,6 +992,7 @@
             </div>
         </div>
     </div> --}}
+
     <script src="{{asset('assets/frontend-assets/js/scripts.js')}}"></script>
     {{-- <script src="{{asset('assets/frontend-assets/js/imagecroper.js')}}"></script> --}}
     <script src="{{ asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
