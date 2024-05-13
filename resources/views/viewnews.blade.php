@@ -212,7 +212,7 @@
                             @foreach ($newspaperdata as $value)
                             <div class="col-sm-12 col-xl-12">
                                 <a href="#" class="text-decoration-none" data-url="{{ asset($value->papers) }}"
-                                    id="urldynamic">
+                                    id="urldynamic" data-id="{{$value->id}}">
                                     <div class="card border m-3">
                                         <img src="{{ asset($value->papers) }}" class="" alt="...">
                                         <div class="">
@@ -236,10 +236,13 @@
                         </div>
                     </div>
                     <div class="card-body image-container" id="printableDiv">
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#myModal">
+                        {{-- <a href="#" > --}}
                             <img src="{{asset($newspaperdata[0]->papers)}}" alt="" height="600px" class="img-fluid"
-                                id="mainimg" data-url="{{ asset($newspaperdata[0]->papers) }}">
-                        </a>
+                                id="mainimg" data-url="{{ asset($newspaperdata[0]->papers) }}" usemap="#workmap">
+                        {{-- </a> --}}
+                        <map name="workmap">
+                            <area shape="rect" data-bs-toggle="modal" data-bs-target="#myModal" coords="0,0,509,324" alt="Computer" href="{{asset($newspaperdata[0]->papers)}}">
+                        </map>
                     </div>
                 </div>
             </div>
@@ -269,6 +272,19 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        function mapping(id)
+        {
+            $.ajax({
+                url : "{{route('finalmapping')}}",
+                type : "GET",
+                data : {'id' : id},
+                success:function(data){
+                    console.log(data)
+                }
+            });
+        }
+    </script>
     <script>
         function printDiv() {
             var printableArea = document.getElementById('printableDiv').innerHTML;
@@ -305,6 +321,8 @@
     <script>
         $(document).on('click', '#urldynamic', function() {
             var url = $(this).data('url');
+            var id = $(this).data('id');
+            mapping(id);
             console.log(url);
             $('#mainimg').attr('src', url);
             $('#mainimg').data('url', url);

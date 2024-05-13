@@ -63,6 +63,8 @@ class StoreController extends Controller
             $data = new Mapping();
             $data->xaxis = $req->xaxis;
             $data->yaxis = $req->yaxis;
+            $data->bxaxis = $req->bxaxis;
+            $data->byaxis = $req->byaxis;
             $data->newspaperid = $req->newspaperid;
             $data->paperid = $req->pageid;
             $data->croppedimg = $req->cropimghid;
@@ -76,6 +78,12 @@ class StoreController extends Controller
         } catch (Exception $e) {
             return back()->with('error', $e->getMessage());
         }
+    }
+
+    public function finalmapping(Request $req)
+    {
+        $mappingdata = Mapping::where('paperid',$req->id)->get();
+        return response()->json($mappingdata);
     }
 }
 

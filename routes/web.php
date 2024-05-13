@@ -35,3 +35,4 @@ Route::get('/viewnews/{id}/{date}', [ViewController::class, 'viewnews'])->name('
 Route::get('/daterecords/{selectedDate}', [ViewController::class, 'daterecords'])->name('daterecords');
 Route::post('/addmapping', [StoreController::class, 'addmapping'])->name('addmapping');
 Route::get('/mappingview', [ViewController::class, 'mappingview'])->name('mappingview');
+Route::get('/finalmapping', [StoreController::class, 'finalmapping'])->name('finalmapping');

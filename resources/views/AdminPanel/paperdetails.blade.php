@@ -6,7 +6,6 @@
     <style>
         #preview {
             width: 100%;
-            max-width: 400px;
             height: auto;
         }
     </style>
@@ -22,8 +21,8 @@
                             <select id="pageSelect" class="form-select rounded " aria-label="Default select example">
                                 <option value="0">Select Image</option>
                                 @foreach ($newspaperdata as $value)
-                                    <option data-id="{{ $value->id }}" value="{{ asset($value->papers) }}">Page
-                                        {{ $value->sequence }}</option>
+                                <option data-id="{{ $value->id }}" value="{{ asset($value->papers) }}">Page
+                                    {{ $value->sequence }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -34,7 +33,7 @@
                 </div>
                 <div class="card-body">
                     <div>
-                        <img id="preview" src="" alt="Selected Image to Crop">
+                        <img id="preview" src="" width="100%" alt="Selected Image to Crop">
                     </div>
                 </div>
             </div>
@@ -55,50 +54,29 @@
                             </div>
                             <div class="col-lg-6">
                                 <label for="FormSelectSizing" class="form-label text-muted">X-Axis</label>
-                                <input type="text" class="form-control" name="xaxis" id="xaxis" value=""
-                                    readonly>
+                                <input type="text" class="form-control" name="xaxis" id="xaxis" value="" readonly>
 
                                 <label for="FormSelectSizing" class="form-label text-muted">Y-Axis</label>
-                                <input type="text" class="form-control" name="yaxis" id="yaxis" value=""
-                                    readonly>
+                                <input type="text" class="form-control" name="yaxis" id="yaxis" value="" readonly>
+
+                                <label for="FormSelectSizing" class="form-label text-muted">Bottom X-Axis</label>
+                                <input type="text" class="form-control" name="bxaxis" id="bxaxis" value="" readonly>
+
+                                <label for="FormSelectSizing" class="form-label text-muted">Bottom Y-Axis</label>
+                                <input type="text" class="form-control" name="byaxis" id="byaxis" value="" readonly>
 
                                 <input type="hidden" name="newspaperid" value="{{ $newspaperdata[0]->newsid }}">
-                                <input type="hidden" name="pageid" value="{{ $value->id }}">
+                                <input type="hidden" name="pageid" id="pageid" value="">
                                 <input type="hidden" id="cropimghid" name="cropimghid" value="">
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
-            <div class="card">
-                <div class="table-responsive">
-                    <table class="table table-bordered table-nowrap align-middle mb-0">
-                        <thead>
-                            <tr>
-                                <th scope="col" style="width: 30%">S.No</th>
-                                <th scope="col" style="width: 30%">Mapped Image</th>
-                                <th scope="col" style="width: 20%">X-Axis</th>
-                                <th scope="col" style="width: 20%">Y-Axis</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($mappingdata as $index => $data)
-                                <tr>
-                                    <td>{{ $index + 1 }}</td>
-                                    <td>
-                                        <img src="{{ $data->croppedimg }}" class="avatar-xs rounded-circle me-2" />
-                                    </td>
-                                    <td>{{ $data->xaxis }}</td>
-                                    <td>{{ $data->yaxis }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
         </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).ready(function() {
             var imageCropper;
@@ -119,9 +97,17 @@
 
             // // Event listener for dropdown change
             $('#pageSelect').change(function() {
-                var selectedImage = $(this).val();
-                console.log(selectedImage);
+                var selectedOption = $(this).find(':selected');
+                var selectedImage = selectedOption.val();
+
+                // Get the 'data-id' attribute value
+                var dataId = selectedOption.data('id');
+                console.log('Data ID:', dataId);
+                console.log('Image Path:', selectedImage);
+                // var selectedImage = $(this).val();
+                // console.log(selectedImage);
                 document.getElementById('preview').src = selectedImage;
+                document.getElementById('pageid').value = dataId;
                 initializeCropper(selectedImage, 'NaN');
             });
 
@@ -134,16 +120,32 @@
                 }
                 var croppedImage = croppedCanvas.toDataURL();
                 console.log(
-                croppedImage); // You can do anything with the cropped image here, like displaying it, saving it, etc.
+                    croppedImage
+                ); // You can do anything with the cropped image here, like displaying it, saving it, etc.
 
                 // Get crop box data
                 var cropBoxData = imageCropper.getCropBoxData();
                 var x = cropBoxData.left;
                 var y = cropBoxData.top;
-                console.log('X Axis:', x);
-                console.log('Y Axis:', y);
-                var xaxis = document.getElementById("xaxis").value = x;
-                var yaxis = document.getElementById("yaxis").value = y;
+
+
+
+
+                var width = cropBoxData.width;
+                var height = cropBoxData.height;
+                // Calculate coordinates of all four corners
+                var topLeftX = x;
+                var topLeftY = y;
+                var bottomRightX = x + width;
+                var bottomRightY = y + height;
+
+                console.log('Top-left:', topLeftX, topLeftY);
+                console.log('Bottom-right:', bottomRightX, bottomRightY);
+                var topxaxis = document.getElementById("xaxis").value = topLeftX;
+                var topyaxis = document.getElementById("yaxis").value = topLeftY;
+                var bottomxaxis = document.getElementById("bxaxis").value = bottomRightX;
+                var bottomyaxis = document.getElementById("byaxis").value = bottomRightY;
+
                 var cropimg = document.getElementById('cropimg').src = croppedImage;
                 var cropimghid = document.getElementById('cropimghid').value = croppedImage;
             });
@@ -161,7 +163,15 @@
                 },
                 success: function(data) {
                     console.log(data);
-                }
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: 'Mapping has been successfully added!',
+                    });
+                },
+                error: function() {
+                        alert("An error occurred while adding the mapping.");
+                    }
             });
         });
     </script>
