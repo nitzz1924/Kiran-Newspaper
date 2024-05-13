@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Cropper</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.min.css">
+    <style>
+        #preview {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <select id="imageDropdown">
+        <option value="https://images.pexels.com/photos/275033/pexels-photo-275033.jpeg">Image 1</option>
+        <option value="https://images.pexels.com/photos/682933/pexels-photo-682933.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1">Image 2</option>
+        <option value="https://images.pexels.com/photos/442576/pexels-photo-442576.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1">Image 3</option>
+    </select>
+    <br><br>
+    <div>
+        <img id="preview" src="" alt="Preview">
+    </div>
+    <br>
+    <button id="getCroppedImage">Get Cropped Image</button>
+
+    <script>
+        $(document).ready(function () {
+            var imageCropper;
+
+            // Function to initialize cropper
+            function initializeCropper(imagePath) {
+                var image = document.getElementById('preview');
+                image.src = imagePath;
+                imageCropper = new Cropper(image, {
+                    aspectRatio: 1,
+                    viewMode: 2
+                });
+            }
+
+            // Event listener for dropdown change
+            $('#imageDropdown').change(function () {
+                var selectedImage = $(this).val();
+                initializeCropper(selectedImage);
+            });
+
+            // Event listener for button click to get cropped image and crop box data
+            $('#getCroppedImage').click(function () {
+                var croppedCanvas = imageCropper.getCroppedCanvas();
+                if (croppedCanvas === null) {
+                    alert('No selection was made. Please select an area to crop.');
+                    return;
+                }
+                var croppedImage = croppedCanvas.toDataURL();
+                console.log(croppedImage); // You can do anything with the cropped image here, like displaying it, saving it, etc.
+
+                // Get crop box data
+                var cropBoxData = imageCropper.getCropBoxData();
+                var x = cropBoxData.left;
+                var y = cropBoxData.top;
+                console.log('X Axis:', x);
+                console.log('Y Axis:', y);
+            });
+        });
+    </script>
+</body>
+</html>

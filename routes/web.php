@@ -33,3 +33,5 @@ Route::get('/allnewspapers', [ViewController::class, 'allnewspapers'])->name('al
 Route::get('/paperdetailsview/{id}', [ViewController::class, 'paperdetailsview'])->name('paperdetailsview');
 Route::get('/viewnews/{id}/{date}', [ViewController::class, 'viewnews'])->name('viewnews');
 Route::get('/daterecords/{selectedDate}', [ViewController::class, 'daterecords'])->name('daterecords');
+Route::post('/addmapping', [StoreController::class, 'addmapping'])->name('addmapping');
+Route::get('/mappingview', [ViewController::class, 'mappingview'])->name('mappingview');

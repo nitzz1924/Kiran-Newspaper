@@ -876,6 +876,67 @@ $d = $(document);
         h = $("#ic-info"),
         b,
         d;
+        $(document).ready(function () {
+            var imageCropper;
+
+            // Function to initialize cropper
+            function initializeCropper(imagePath) {
+                var image = document.getElementById('preview');
+                image.src = imagePath;
+                imageCropper = new Cropper(image, {
+                    aspectRatio: 1,
+                    viewMode: 2
+                });
+            }
+
+            // Event listener for dropdown change
+            $('#pageSelect').change(function () {
+                var selectedImage = $(this).val();
+                console.log(selectedImage);
+                initializeCropper(selectedImage);
+            });
+
+            // Event listener for button click to get cropped image and crop box data
+            $('#getCroppedImage').click(function () {
+                var croppedCanvas = imageCropper.getCroppedCanvas();
+                if (croppedCanvas === null) {
+                    alert('No selection was made. Please select an area to crop.');
+                    return;
+                }
+                var croppedImage = croppedCanvas.toDataURL();
+                console.log(croppedImage); // You can do anything with the cropped image here, like displaying it, saving it, etc.
+
+                // Get crop box data
+                var cropBoxData = imageCropper.getCropBoxData();
+                var x = cropBoxData.left;
+                var y = cropBoxData.top;
+                console.log('X Axis:', x);
+                console.log('Y Axis:', y);
+            });
+        });
+        // $("#pageSelect").on("change", function() {
+        //     // Your function logic here
+        //     f.empty();
+        //     var c = Math.min(600, $("#ic-main").width());
+        //     b = new ImageCropper(f, c, c);
+        //     b.setMoveCallback(function () {
+        //         var a = b.getVals();
+        //         h.text(a.w + "w X " + a.h + "h (x:" + a.x + ", y:" + a.y + ")");
+        //     });
+
+        //     // Assuming 'd' is globally accessible
+        //     a = new FileReader();
+        //     a.onload = function (a) {
+        //         b.setSrc(a.target.result);
+        //         $(".ic-hidden.ic-crop-btn-wrap").removeClass("ic-hidden");
+        //     };
+
+        //     // Assuming 'd' is assigned based on dropdown selection
+        //     // If not, you'll need to retrieve the selected value and assign 'd' accordingly
+        //     // Example: d = someFunctionToGetFile(this.value);
+        //     console.log(d);
+        //     a.readAsDataURL(d);
+        // });
 
     $d.on("change", "#ic-upload-btn input", function (a) {
         f.empty();
@@ -891,6 +952,7 @@ $d = $(document);
             b.setSrc(a.target.result);
             $(".ic-hidden.ic-crop-btn-wrap").removeClass("ic-hidden");
         };
+        console.log(a);
         a.readAsDataURL(d);
     });
 

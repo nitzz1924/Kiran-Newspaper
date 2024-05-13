@@ -2,6 +2,7 @@
 #    || उद्यम से ही कार्य सिद्ध होते हैं, इच्छा से नहीं। सोते हुए शेर के मुँह में कोई भी मृग नहीं घुसता। ||
 namespace App\Http\Controllers;
 
+use App\Models\Mapping;
 use App\Models\Newspaper;
 use App\Models\Date;
 use Illuminate\Http\Request;
@@ -53,6 +54,28 @@ class StoreController extends Controller
             return redirect()->route('viewaddnews')->with('error', 'Not Created Try Again...');
         }
 
+    }
+
+    public function addmapping(Request $req)
+    {
+        // dd($req->all());
+        try {
+            $data = new Mapping();
+            $data->xaxis = $req->xaxis;
+            $data->yaxis = $req->yaxis;
+            $data->newspaperid = $req->newspaperid;
+            $data->paperid = $req->pageid;
+            $data->croppedimg = $req->cropimghid;
+            // dd($data);
+            $data->save();
+            $responseData = [
+                'msg' => 'success',
+                'data' => $data,
+            ];
+            return response()->json($responseData);
+        } catch (Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
     }
 }
 
