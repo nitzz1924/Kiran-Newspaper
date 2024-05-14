@@ -33,7 +33,7 @@
                 </div>
                 <div class="card-body">
                     <div>
-                        <img id="preview" src="" width="100%" alt="Selected Image to Crop">
+                        <img id="preview" src="{{ asset('assets/images/defaultimageplaceholder.jpg') }}" width="100%" alt="Selected Image to Crop">
                     </div>
                 </div>
             </div>
