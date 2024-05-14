@@ -51,4 +51,17 @@ class ViewController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+
+    public function getmappingtable($id)
+    {
+        $mappingdata = Mapping::where('paperid',$id)->get();
+        // dd($mappingdata);
+        return response()->json($mappingdata);
+    }
+
+    public function destroy($id)
+    {
+        $mappingdata = Mapping::where('id',$id)->delete();
+        return back();
+    }
 }

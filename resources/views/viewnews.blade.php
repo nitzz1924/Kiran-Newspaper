@@ -152,29 +152,37 @@
                 padding: 10px 20px;
                 border-radius: 30px;
             }
+
+            area:hover {
+                cursor: pointer;
+                z-index: 99;
+                background-color: rgba(255, 36, 36, 0.5);
+            }
         </style>
         <div class="card">
             <div class="card-body">
                 <div class="row g-2 d-flex align-items-center">
                     <div class="col-6 col-md-2">
                         <select id="pageSelect" class="form-select rounded" aria-label="Default select example">
+                            <option>--select page--</option>
                             @foreach ($newspaperdata as $value)
-                            <option {{ $value->sequence == 1 ? 'selected' : '' }} value="{{ asset($value->papers)
-                                }}">Page {{$value->sequence}}</option>
+                                <option data-id="{{ $value->id }}" {{ $value->sequence == 1 ? 'selected' : '' }}
+                                    value="{{ asset($value->papers) }}">Page {{ $value->sequence }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="ms-sm-auto col-6 col-md-2">
                         <div>
                             <?php
-                                $urlDate = $data->date ?? null;
-                                if ($urlDate) {
-                                    $formattedDate = date('Y-m-d', strtotime($urlDate));
-                                } else {
-                                    $formattedDate = date('Y-m-d');
-                                }
-                                ?>
-                            <input type="date" class="form-control rounded" id="newsdate" value="<?= $formattedDate ?>">
+                            $urlDate = $data->date ?? null;
+                            if ($urlDate) {
+                                $formattedDate = date('Y-m-d', strtotime($urlDate));
+                            } else {
+                                $formattedDate = date('Y-m-d');
+                            }
+                            ?>
+                            <input type="date" class="form-control rounded" id="newsdate"
+                                value="<?= $formattedDate ?>">
                         </div>
                     </div>
                 </div>
@@ -183,15 +191,15 @@
         <div class="card mt-0 p-3">
             <div class="social">
                 <ul class="no-list">
-                    <a href="https://www.facebook.com/Tungakiranakannadanewspaper?mibextid=ZbWKWL/viewnews/{{$data->id}}/{{$formattedDate}}"
+                    <a href="https://www.facebook.com/Tungakiranakannadanewspaper?mibextid=ZbWKWL/viewnews/{{ $data->id }}/{{ $formattedDate }}"
                         target="_blank">
                         <li class="facebook"><i class="bi bi-facebook"></i></li>
                     </a>
-                    <a href="https://telegram.me/share/url?url=https://epaper.thungakiran.in/viewnews/{{$data->id}}/{{$formattedDate}}&text=Your%20message%20here&to=+919986873183"
+                    <a href="https://telegram.me/share/url?url=https://epaper.thungakiran.in/viewnews/{{ $data->id }}/{{ $formattedDate }}&text=Your%20message%20here&to=+919986873183"
                         target="_blank">
                         <li class="twitter"><i class="bi bi-telegram"></i></li>
                     </a>
-                    <a href="https://api.whatsapp.com/send?text=Your%20message%20here%20https://epaper.thungakiran.in/viewnews/{{$data->id}}/{{$formattedDate}}&phone=+919986873183"
+                    <a href="https://api.whatsapp.com/send?text=Your%20message%20here%20https://epaper.thungakiran.in/viewnews/{{ $data->id }}/{{ $formattedDate }}&phone=+919986873183"
                         target="_blank" class="">
                         <li class="tumblr"><i class="bi bi-whatsapp"></i></li>
                     </a>
@@ -210,18 +218,19 @@
                     <div class="accordion accordion-flush filter-accordion">
                         <div class="row" id="sideimages-container">
                             @foreach ($newspaperdata as $value)
-                            <div class="col-sm-12 col-xl-12">
-                                <a href="#" class="text-decoration-none" data-url="{{ asset($value->papers) }}"
-                                    id="urldynamic" data-id="{{$value->id}}">
-                                    <div class="card border m-3">
-                                        <img src="{{ asset($value->papers) }}" class="" alt="...">
-                                        <div class="">
-                                            <div class="text-muted text-center p-1">Page No. {{$value->sequence}}
+                                <div class="col-sm-12 col-xl-12">
+                                    <a href="#" class="text-decoration-none"
+                                        data-url="{{ asset($value->papers) }}" id="urldynamic"
+                                        data-id="{{ $value->id }}">
+                                        <div class="card border m-3">
+                                            <img src="{{ asset($value->papers) }}" class="" alt="...">
+                                            <div class="">
+                                                <div class="text-muted text-center p-1">Page No. {{ $value->sequence }}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </a>
-                            </div>
+                                    </a>
+                                </div>
                             @endforeach
                         </div>
                     </div>
@@ -231,18 +240,19 @@
             <div class="col-xl-10 col-lg-8">
                 <div class="card">
                     <div class="card-header">
-                        <div class="text-muted fst-italic" id="published-date">Published on : {{ date('j-M-Y',
-                            strtotime($data->date)) }}
+                        <div class="text-muted fst-italic" id="published-date">Published on :
+                            {{ date('j-M-Y', strtotime($data->date)) }}
                         </div>
                     </div>
                     <div class="card-body image-container" id="printableDiv">
-                        {{-- <a href="#" > --}}
-                            <img src="{{asset($newspaperdata[0]->papers)}}" alt="" height="600px" class="img-fluid"
-                                id="mainimg" data-url="{{ asset($newspaperdata[0]->papers) }}" usemap="#workmap">
+                        {{-- <a href="#"> --}}
+                        <img src="{{ asset($newspaperdata[0]->papers) }}" alt="" height="600px"
+                            class="img-fluid" id="mainimg" data-url="{{ asset($newspaperdata[0]->papers) }}"
+                            usemap="#workmap">
                         {{-- </a> --}}
-                        <map name="workmap">
-                            <area shape="rect" data-bs-toggle="modal" data-bs-target="#myModal" coords="0,0,509,324" alt="Computer" href="{{asset($newspaperdata[0]->papers)}}">
-                        </map>
+                        <div id="mappingfinal">
+                            {{--Area tag will be appended here--}}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -256,13 +266,9 @@
             <div class="modal-content">
                 <div class="modal-body">
                     <div class="image-container overflow-auto">
-                        <img src="{{asset($newspaperdata[0]->papers)}}" alt=""
-                            class="img-responsive center-block zoomable-image" id="firstimg">
+                        <img src="" alt="" class="img-responsive center-block zoomable-image"
+                            id="firstimg">
                     </div>
-                    {{-- <div class="image-container-zoom">
-                        <img src="{{asset($newspaperdata[0]->papers)}}" alt="" height="600px"
-                            class="img-responsive center-block" id="secimg">
-                    </div> --}}
                 </div>
             </div>
         </div>
@@ -273,18 +279,47 @@
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
-        function mapping(id)
-        {
+        //calling JS function and passing PHP parameter
+        var newspaperId = "{{ $newspaperdata[0]->id }}";
+        mapping(newspaperId);
+
+        function mapping(id) {
             $.ajax({
-                url : "{{route('finalmapping')}}",
-                type : "GET",
-                data : {'id' : id},
-                success:function(data){
-                    console.log(data)
+                url: "{{ route('finalmapping') }}",
+                type: "GET",
+                data: {
+                    'id': id
+                }, //dynamic mapping
+                success: function(data) {
+                    console.log(data);
+                    $('#mappingfinal').empty();
+                    var area = '<map name="workmap">';
+                    $.each(data, function(index, items) {
+                        console.log(items);
+                        area +=
+                            '<area shape="rect" class="hoverborder" data-bs-toggle="modal" data-image="' +
+                            items
+                            .croppedimg + '" data-bs-target="#myModal" coords="' +
+                            items.xaxis + ',' + items.yaxis + ',' + items.bxaxis + ',' + items.byaxis +
+                            '" alt="Computer" href="">';
+                    });
+                    area += '</map>';
+                    console.log(area);
+                    $('#mappingfinal').append(area);
                 }
             });
         }
+        // Handle modal display
+        $('#myModal').on('show.bs.modal', function(event) {
+            var modal = $(this);
+            var area = $(event.relatedTarget); // Area that triggered the modal
+            var imageSrc = area.data('image'); // Get the image source from data-image attribute
+
+            // Update modal content with the image
+            modal.find('.modal-body img').attr('src', imageSrc);
+        });
     </script>
+
     <script>
         function printDiv() {
             var printableArea = document.getElementById('printableDiv').innerHTML;
@@ -296,16 +331,15 @@
 
             document.body.innerHTML = originalContents;
         }
-
     </script>
     <script>
         $(document).on('change', '#newsdate', function() {
             var selectedDate = $(this).val();
             console.log(selectedDate);
             $.ajax({
-                type: 'GET'
-                , url: '/daterecords/' + selectedDate
-                , success: function(response) {
+                type: 'GET',
+                url: '/daterecords/' + selectedDate,
+                success: function(response) {
                     console.log(response[0].id);
                     var baseUrl = window.location.protocol + "//" + window.location.hostname;
                     if (window.location.port) {
@@ -316,7 +350,6 @@
                 }
             });
         });
-
     </script>
     <script>
         $(document).on('click', '#urldynamic', function() {
@@ -336,22 +369,30 @@
             document.getElementById('secimg').src = urla;
         });
         $(document).on('change', '#pageSelect', function() {
-            var imgurl = $(this).val();
-            console.log(imgurl);
-            document.getElementById('mainimg').src = imgurl;
-            $('#mainimg').data('url', imgurl);
-        });
+            var selectedOption = $(this).find(':selected');
+            var selectedImage = selectedOption.val();
 
+            // Get the 'data-id' attribute value
+            var dataId = selectedOption.data('id');
+            console.log('Data ID:', dataId);
+            console.log('Image Path:', selectedImage);
+            console.log(selectedImage);
+
+            document.getElementById('mainimg').src = selectedImage;
+            $('#mainimg').data('url', selectedImage);
+            mapping(dataId);
+
+        });
     </script>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-        const zoomableImage = document.getElementById('firstimg');
+        document.addEventListener("DOMContentLoaded", function() {
+            const zoomableImage = document.getElementById('firstimg');
 
-        zoomableImage.addEventListener('dblclick', function (e) {
-            e.preventDefault();
-            this.classList.toggle('zoomed-in');
+            zoomableImage.addEventListener('dblclick', function(e) {
+                e.preventDefault();
+                this.classList.toggle('zoomed-in');
+            });
         });
-    });
     </script>
 
 </x-guest-layout>

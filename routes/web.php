@@ -36,3 +36,5 @@ Route::get('/daterecords/{selectedDate}', [ViewController::class, 'daterecords']
 Route::post('/addmapping', [StoreController::class, 'addmapping'])->name('addmapping');
 Route::get('/mappingview', [ViewController::class, 'mappingview'])->name('mappingview');
 Route::get('/finalmapping', [StoreController::class, 'finalmapping'])->name('finalmapping');
+Route::get('/getmappingtable/{id}', [ViewController::class, 'getmappingtable'])->name('getmappingtable');
+Route::get('/destroy/{id}', [ViewController::class, 'destroy'])->name('destroy');

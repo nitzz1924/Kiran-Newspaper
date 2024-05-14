@@ -50,7 +50,7 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <img id="cropimg" src="{{ asset('assets/images/defaultimageplaceholder.jpg') }}"
-                                    height="150px" width="100%" name="croppedimg">
+                                    height="300px" width="100%" name="croppedimg">
                             </div>
                             <div class="col-lg-6">
                                 <label for="FormSelectSizing" class="form-label text-muted">X-Axis</label>
@@ -73,10 +73,58 @@
                     </div>
                 </form>
             </div>
+            <div class="card">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-nowrap">
+                        <thead>
+                            <tr>
+                                <th scope="col">Sno.</th>
+                                <th scope="col">Mapped Image</th>
+                                <th scope="col">Top-Left</th>
+                                <th scope="col">Bottom-Right</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablebody">
+                            {{--table body appends here--}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function getMapListings(id)
+            {
+                var id = id;
+                 //Dynamic Mapping Table Showing.................
+                 $.ajax({
+                        url : "/getmappingtable/" + id,
+                        type : "GET",
+                        success:function(data){
+                            console.log(data);
+                            $('#tablebody').empty();
+                            var body='';
+                            $.each(data, function(index, items) {
+                                body += `
+                                    <tr>
+                                    <th scope="row">${index + 1}</th>
+                                    <td><img class="square-50" height="50px" width="50px" src="${items.croppedimg}" alt="Image"></td>
+                                    <td>x: ${Number.parseFloat(items.xaxis).toFixed(2)}, y: ${Number.parseFloat(items.yaxis).toFixed(2)}</td>
+                                    <td>x: ${Number.parseFloat(items.bxaxis).toFixed(2)}, y: ${Number.parseFloat(items.byaxis).toFixed(2)}</td>
+                                    <td>
+                                        <a class="btn btn-danger btn-soft btn-sm" href="/destroy/${items.id}"><i class="bi bi-trash"></i></a>
+                                    </td>
+                                </tr>
+                            `;
+                            });
+                            $('#tablebody').append(body);
+                        }
+                    });
+            }
+    </script>
     <script>
         $(document).ready(function() {
             var imageCropper;
@@ -109,6 +157,8 @@
                 document.getElementById('preview').src = selectedImage;
                 document.getElementById('pageid').value = dataId;
                 initializeCropper(selectedImage, 'NaN');
+                getMapListings(dataId);
+
             });
 
             // Event listener for button click to get cropped image and crop box data
@@ -168,6 +218,8 @@
                         title: 'Success!',
                         text: 'Mapping has been successfully added!',
                     });
+                    console.log(data.data.paperid);
+                    getMapListings(data.data.paperid);
                 },
                 error: function() {
                         alert("An error occurred while adding the mapping.");
